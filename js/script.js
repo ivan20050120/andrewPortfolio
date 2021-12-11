@@ -2,182 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/libs/dynamicAdaptive.js":
-/*!****************************************!*\
-  !*** ./src/js/libs/dynamicAdaptive.js ***!
-  \****************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const dynamicAdaptive = () => {
-  // Dynamic Adapt v.1
-  // HTML data-da="where(uniq class name),when(breakpoint),position(digi)"
-  // e.x. data-da=".item,992,2"
-  // Andrikanych Yevhen 2020
-  // https://www.youtube.com/c/freelancerlifestyle
-  "use strict";
-
-  function DynamicAdapt(type) {
-    this.type = type;
-  }
-
-  DynamicAdapt.prototype.init = function () {
-    const _this = this; // массив объектов
-
-
-    this.оbjects = [];
-    this.daClassname = "_dynamic_adapt_"; // массив DOM-элементов
-
-    this.nodes = document.querySelectorAll("[data-da]"); // наполнение оbjects объктами
-
-    for (let i = 0; i < this.nodes.length; i++) {
-      const node = this.nodes[i];
-      const data = node.dataset.da.trim();
-      const dataArray = data.split(",");
-      const оbject = {};
-      оbject.element = node;
-      оbject.parent = node.parentNode;
-      оbject.destination = document.querySelector(dataArray[0].trim());
-      оbject.breakpoint = dataArray[1] ? dataArray[1].trim() : "767";
-      оbject.place = dataArray[2] ? dataArray[2].trim() : "last";
-      оbject.index = this.indexInParent(оbject.parent, оbject.element);
-      this.оbjects.push(оbject);
-    }
-
-    this.arraySort(this.оbjects); // массив уникальных медиа-запросов
-
-    this.mediaQueries = Array.prototype.map.call(this.оbjects, function (item) {
-      return '(' + this.type + "-width: " + item.breakpoint + "px)," + item.breakpoint;
-    }, this);
-    this.mediaQueries = Array.prototype.filter.call(this.mediaQueries, function (item, index, self) {
-      return Array.prototype.indexOf.call(self, item) === index;
-    }); // навешивание слушателя на медиа-запрос
-    // и вызов обработчика при первом запуске
-
-    for (let i = 0; i < this.mediaQueries.length; i++) {
-      const media = this.mediaQueries[i];
-      const mediaSplit = String.prototype.split.call(media, ',');
-      const matchMedia = window.matchMedia(mediaSplit[0]);
-      const mediaBreakpoint = mediaSplit[1]; // массив объектов с подходящим брейкпоинтом
-
-      const оbjectsFilter = Array.prototype.filter.call(this.оbjects, function (item) {
-        return item.breakpoint === mediaBreakpoint;
-      });
-      matchMedia.addListener(function () {
-        _this.mediaHandler(matchMedia, оbjectsFilter);
-      });
-      this.mediaHandler(matchMedia, оbjectsFilter);
-    }
-  };
-
-  DynamicAdapt.prototype.mediaHandler = function (matchMedia, оbjects) {
-    if (matchMedia.matches) {
-      for (let i = 0; i < оbjects.length; i++) {
-        const оbject = оbjects[i];
-        оbject.index = this.indexInParent(оbject.parent, оbject.element);
-        this.moveTo(оbject.place, оbject.element, оbject.destination);
-      }
-    } else {
-      for (let i = 0; i < оbjects.length; i++) {
-        const оbject = оbjects[i];
-
-        if (оbject.element.classList.contains(this.daClassname)) {
-          this.moveBack(оbject.parent, оbject.element, оbject.index);
-        }
-      }
-    }
-  }; // Функция перемещения
-
-
-  DynamicAdapt.prototype.moveTo = function (place, element, destination) {
-    element.classList.add(this.daClassname);
-
-    if (place === 'last' || place >= destination.children.length) {
-      destination.insertAdjacentElement('beforeend', element);
-      return;
-    }
-
-    if (place === 'first') {
-      destination.insertAdjacentElement('afterbegin', element);
-      return;
-    }
-
-    destination.children[place].insertAdjacentElement('beforebegin', element);
-  }; // Функция возврата
-
-
-  DynamicAdapt.prototype.moveBack = function (parent, element, index) {
-    element.classList.remove(this.daClassname);
-
-    if (parent.children[index] !== undefined) {
-      parent.children[index].insertAdjacentElement('beforebegin', element);
-    } else {
-      parent.insertAdjacentElement('beforeend', element);
-    }
-  }; // Функция получения индекса внутри родителя
-
-
-  DynamicAdapt.prototype.indexInParent = function (parent, element) {
-    const array = Array.prototype.slice.call(parent.children);
-    return Array.prototype.indexOf.call(array, element);
-  }; // Функция сортировки массива по breakpoint и place 
-  // по возрастанию для this.type = min
-  // по убыванию для this.type = max
-
-
-  DynamicAdapt.prototype.arraySort = function (arr) {
-    if (this.type === "min") {
-      Array.prototype.sort.call(arr, function (a, b) {
-        if (a.breakpoint === b.breakpoint) {
-          if (a.place === b.place) {
-            return 0;
-          }
-
-          if (a.place === "first" || b.place === "last") {
-            return -1;
-          }
-
-          if (a.place === "last" || b.place === "first") {
-            return 1;
-          }
-
-          return a.place - b.place;
-        }
-
-        return a.breakpoint - b.breakpoint;
-      });
-    } else {
-      Array.prototype.sort.call(arr, function (a, b) {
-        if (a.breakpoint === b.breakpoint) {
-          if (a.place === b.place) {
-            return 0;
-          }
-
-          if (a.place === "first" || b.place === "last") {
-            return 1;
-          }
-
-          if (a.place === "last" || b.place === "first") {
-            return -1;
-          }
-
-          return b.place - a.place;
-        }
-
-        return b.breakpoint - a.breakpoint;
-      });
-      return;
-    }
-  };
-
-  const da = new DynamicAdapt("max");
-  da.init();
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (dynamicAdaptive);
-
-/***/ }),
-
 /***/ "./src/js/libs/slider.js":
 /*!*******************************!*\
   !*** ./src/js/libs/slider.js ***!
@@ -567,6 +391,60 @@ const spoller = () => {
 
 /***/ }),
 
+/***/ "./src/js/modules/addMore.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/addMore.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const addMore = () => {
+  const arrData = [{
+    img: '01.png',
+    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
+    author: 'sarah robinson'
+  }, {
+    img: '03.png',
+    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
+    author: 'John Smit'
+  }, {
+    img: '02.png',
+    text: 'At first I was not sure about this team but I decided to give them a chance. And they didn’t let me down. Good job, guys',
+    author: 'Jeckson Storm'
+  }];
+  const wrapper = document.querySelector('.people-feedback__body'),
+        btn = document.querySelector('.people-feedback__more');
+
+  function appendItems(data) {
+    data.forEach(feedBack => {
+      const {
+        img,
+        text,
+        author
+      } = feedBack;
+      const item = document.createElement('div');
+      item.classList.add('people-feedback__item');
+      item.innerHTML = `    
+                <div class="people-feedback__content">
+                <div class="people-feedback__image _ibg">
+                    <img src="./img/feedback/${img}" alt="person">
+                </div>
+                <div class="people-feedback__text">${text}</div>
+                </div>
+                <div class="people-feedback__line"></div>
+                <div class="people-feedback__author">${author}</div>
+            `;
+      wrapper.append(item);
+    });
+  }
+
+  btn.addEventListener('click', () => appendItems(arrData));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (addMore);
+
+/***/ }),
+
 /***/ "./src/js/modules/burger.js":
 /*!**********************************!*\
   !*** ./src/js/modules/burger.js ***!
@@ -574,10 +452,11 @@ const spoller = () => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-const burger = () => {// const btn = document.querySelector('.icon-menu'),
-  // links = document.querySelectorAll('[data-goto]'),
-  // menu = document.querySelector('.menu__body');
-  // if(links.length > 0){
+const burger = () => {
+  const btn = document.querySelector('.icon-menu'),
+        closeBtn = document.querySelector('.menu__close'),
+        links = document.querySelectorAll('.menu__link'),
+        menu = document.querySelector('.menu__body'); // if(links.length > 0){
   //         links.forEach(item => {
   //             item.addEventListener('click',function(e){
   //                 btn.classList.remove('_active');
@@ -586,14 +465,109 @@ const burger = () => {// const btn = document.querySelector('.icon-menu'),
   //             })
   //         });
   // }
-  // btn.addEventListener('click',function(e){
-  //     btn.classList.toggle('_active');
-  //     menu.classList.toggle('_active');
-  //     document.body.classList.toggle('_lock');
-  // })
+
+  function toggleMenu(trigger) {
+    trigger.addEventListener('click', function (e) {
+      btn.classList.toggle('_active');
+      menu.classList.toggle('_active');
+      document.body.classList.toggle('_lock');
+    });
+  }
+
+  toggleMenu(btn);
+  toggleMenu(closeBtn);
+  links.forEach(link => {
+    toggleMenu(link);
+  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (burger);
+
+/***/ }),
+
+/***/ "./src/js/modules/menuScroll.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/menuScroll.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const menuScroll = () => {
+  let links = document.querySelectorAll('.menu__link'),
+      speed = 0.4;
+  links.forEach((link, i) => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      let heightTop = document.documentElement.scrollTop,
+          //
+      // hash = this.hash,//
+      toBlock = document.querySelector(link.dataset.goto).getBoundingClientRect().top,
+          //Top border to whhat we scroll
+      start = null; //start pos
+
+      requestAnimationFrame(step);
+
+      function step(time) {
+        if (start === null) {
+          start = time;
+        }
+
+        let progress = time - start,
+            r = toBlock < 0 ? Math.max(heightTop - progress / speed, heightTop + toBlock) : Math.min(heightTop + progress / speed, heightTop + toBlock);
+        document.documentElement.scrollTo(0, r);
+
+        if (r !== heightTop + toBlock) {
+          requestAnimationFrame(step);
+        }
+      }
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (menuScroll);
+
+/***/ }),
+
+/***/ "./src/js/modules/scrollDown.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/scrollDown.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const scrollDown = () => {
+  let links = document.querySelectorAll('.scrollArrow'),
+      speed = 0.4;
+  links.forEach((link, i) => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      let heightTop = document.documentElement.scrollTop,
+          //
+      // hash = this.hash,//
+      toBlock = document.querySelector('.portfolio').getBoundingClientRect().top,
+          //Top border to whhat we scroll
+      start = null; //start pos
+
+      requestAnimationFrame(step);
+
+      function step(time) {
+        if (start === null) {
+          start = time;
+        }
+
+        let progress = time - start,
+            r = toBlock < 0 ? Math.max(heightTop - progress / speed, heightTop + toBlock) : Math.min(heightTop + progress / speed, heightTop + toBlock);
+        document.documentElement.scrollTo(0, r);
+
+        if (r !== heightTop + toBlock) {
+          requestAnimationFrame(step);
+        }
+      }
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (scrollDown);
 
 /***/ }),
 
@@ -620,6 +594,7 @@ const tabs = () => {
   function hideTabs() {
     tabs.forEach(tab => {
       tab.style.display = 'none';
+      tab.classList.remove('fade');
     });
     btns.forEach(btn => {
       btn.classList.remove('_active');
@@ -627,8 +602,9 @@ const tabs = () => {
   }
 
   function showTab() {
-    let i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    let i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     // calc();
+    tabs[i].classList.add('fade');
     tabs[i].style.display = 'block';
     btns[i].classList.add('_active');
   }
@@ -648,19 +624,6 @@ const tabs = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
-
-/***/ }),
-
-/***/ "./src/js/modules/tabsPosition.js":
-/*!****************************************!*\
-  !*** ./src/js/modules/tabsPosition.js ***!
-  \****************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const tabsPosition = () => {};
-
-/* harmony default export */ __webpack_exports__["default"] = (tabsPosition);
 
 /***/ }),
 
@@ -788,13 +751,13 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_spoller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs/spoller */ "./src/js/libs/spoller.js");
 /* harmony import */ var _libs_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./libs/slider */ "./src/js/libs/slider.js");
-/* harmony import */ var _libs_dynamicAdaptive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./libs/dynamicAdaptive */ "./src/js/libs/dynamicAdaptive.js");
-/* harmony import */ var _services_default__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/default */ "./src/js/services/default.js");
-/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
-/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
-/* harmony import */ var _modules_tabsPosition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tabsPosition */ "./src/js/modules/tabsPosition.js");
+/* harmony import */ var _services_default__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/default */ "./src/js/services/default.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_scrollDown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/scrollDown */ "./src/js/modules/scrollDown.js");
+/* harmony import */ var _modules_menuScroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/menuScroll */ "./src/js/modules/menuScroll.js");
+/* harmony import */ var _modules_addMore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/addMore */ "./src/js/modules/addMore.js");
 //////////// def
-
 
 
  ////////////
@@ -802,17 +765,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+ // import filter from './modules/filter';
+
  ///////////
 // import getResource from './services/request'
 
 window.onload = function () {
-  (0,_services_default__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])(); // positions();
-
+  (0,_services_default__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])();
   (0,_libs_spoller__WEBPACK_IMPORTED_MODULE_0__["default"])();
   (0,_libs_slider__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  (0,_modules_tabsPosition__WEBPACK_IMPORTED_MODULE_6__["default"])(); // dynamicAdaptive();
+  (0,_modules_scrollDown__WEBPACK_IMPORTED_MODULE_5__["default"])();
+  (0,_modules_menuScroll__WEBPACK_IMPORTED_MODULE_6__["default"])();
+  (0,_modules_addMore__WEBPACK_IMPORTED_MODULE_7__["default"])(); // filter();
 };
 }();
 /******/ })()

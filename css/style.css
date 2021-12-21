@@ -58,7 +58,9 @@
 
 html,
 body {
-  height: 100%;
+  position: relative;
+  min-height: 100%;
+  background: #000;
 }
 
 ._container {
@@ -86,7 +88,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(29, 29, 29, 0.15);
+  background: rgba(0, 0, 0, 0.2);
   z-index: 10000;
   pointer-events: none;
 }
@@ -184,8 +186,8 @@ textarea {
 }
 
 .fade {
-  -webkit-animation: fade 0.5s;
-          animation: fade 0.5s;
+  -webkit-animation: fade 0.7s;
+          animation: fade 0.7s;
 }
 
 @-webkit-keyframes fade {
@@ -281,121 +283,23 @@ textarea {
   bottom: calc(50% - 1px);
 }
 
-.bg {
+.fire {
+  position: relative;
+  z-index: 500;
+}
+
+.spark {
+  background-color: #C87867;
+  font-family: Helvetica, sans-serif;
+  visibility: hidden;
   position: absolute;
+  bottom: 300px;
   left: 0;
-  top: 0;
-  background: url() center center no-repeat;
-  background-size: cover;
-}
-
-.no-webp .smoke, .no-webp .smoke-bg{
-  background-image: url("https://www.miclients.com/users/sean/assets/mystery-oreo/smoke_PNG55245.png"); }
-
-.smoke,
-.smoke-bg {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  background-size: cover;
-}
-
-.no-webp .smoke-bg{
-  background-image: url("https://www.miclients.com/users/sean/assets/mystery-oreo/smoke-bg.jpg"); }
-
-.smoke-bg {
-  z-index: -1;
-}
-
-.smoke {
-  -webkit-animation: float2 15s infinite ease-in-out;
-          animation: float2 15s infinite ease-in-out;
-}
-
-.smoke-bg {
-  -webkit-animation: float alternate 30s infinite ease-in-out;
-          animation: float alternate 30s infinite ease-in-out;
-}
-
-@-webkit-keyframes float {
-  0% {
-    opacity: 0.2;
-    -webkit-transform: translateX(3%) scale(1.2);
-            transform: translateX(3%) scale(1.2);
-  }
-
-  50% {
-    opacity: 0.8;
-    -webkit-transform: translateX(0) scale(1.4);
-            transform: translateX(0) scale(1.4);
-  }
-
-  100% {
-    opacity: 0.8;
-    -webkit-transform: translateX(-3%) scale(1.2);
-            transform: translateX(-3%) scale(1.2);
-  }
-}
-
-@keyframes float {
-  0% {
-    opacity: 0.2;
-    -webkit-transform: translateX(3%) scale(1.2);
-            transform: translateX(3%) scale(1.2);
-  }
-
-  50% {
-    opacity: 0.8;
-    -webkit-transform: translateX(0) scale(1.4);
-            transform: translateX(0) scale(1.4);
-  }
-
-  100% {
-    opacity: 0.8;
-    -webkit-transform: translateX(-3%) scale(1.2);
-            transform: translateX(-3%) scale(1.2);
-  }
-}
-
-@-webkit-keyframes float2 {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-10%) scale(1.5);
-            transform: translateX(-10%) scale(1.5);
-  }
-
-  50% {
-    opacity: 1;
-    -webkit-transform: translateX(0) scale(1.2);
-            transform: translateX(0) scale(1.2);
-  }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translateX(10%) scale(1.5);
-            transform: translateX(10%) scale(1.5);
-  }
-}
-
-@keyframes float2 {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-10%) scale(1.5);
-            transform: translateX(-10%) scale(1.5);
-  }
-
-  50% {
-    opacity: 1;
-    -webkit-transform: translateX(0) scale(1.2);
-            transform: translateX(0) scale(1.2);
-  }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translateX(10%) scale(1.5);
-            transform: translateX(10%) scale(1.5);
-  }
+  width: 8px;
+  height: 8px;
+  border-radius: 30%;
+  -webkit-box-shadow: 0 0 5px #8C8DAB;
+          box-shadow: 0 0 5px #8C8DAB;
 }
 
 .menu__btn {
@@ -779,8 +683,9 @@ textarea {
 }
 
 .btns-tabs__btn::after {
+  content: "";
   display: block;
-  width: 100%;
+  width: 0;
   height: 1px;
   background-color: #454545;
   -webkit-transition: all 0.3s ease 0s;
@@ -795,7 +700,6 @@ textarea {
 
 .btns-tabs__btn._active::before,
 .btns-tabs__btn._active::after {
-  content: "";
   width: 100%;
 }
 
@@ -845,6 +749,9 @@ textarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -915,7 +822,7 @@ textarea {
   margin-bottom: 7px;
 }
 
-.portfolio__wrapper {
+.portfolio__slider {
   width: 100%;
 }
 
@@ -924,9 +831,23 @@ textarea {
 }
 
 .portfolio__slide {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 25px;
+}
+
+.portfolio__arrows {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .portfolio__arrow {
@@ -992,6 +913,13 @@ textarea {
 }
 
 .item-portfolio__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 25px;
   width: 50%;
   position: relative;
@@ -1015,6 +943,9 @@ textarea {
 }
 
 .item-portfolio__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   color: #303030;
   font-size: 15px;
   font-weight: 500;
@@ -1378,6 +1309,11 @@ textarea {
             flex: 0 1 50%;
   }
 
+  .portfolio__slide {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .footer__image img {
     height: 400px;
   }
@@ -1390,6 +1326,14 @@ textarea {
 
   ._title:not(:last-child) {
     margin-bottom: calc(40px + 20 * ((100vw - 320px) / 1240));
+  }
+
+  .spark {
+    width: calc(5px + 3 * ((100vw - 320px) / 1240));
+  }
+
+  .spark {
+    height: calc(5px + 3 * ((100vw - 320px) / 1240));
   }
 
   .menu__btn {
@@ -1506,6 +1450,10 @@ textarea {
 
   .portfolio__wrapper:not(:last-child) {
     margin-bottom: calc(25px + 25 * ((100vw - 320px) / 1240));
+  }
+
+  .portfolio__slide {
+    gap: calc(10px + 15 * ((100vw - 320px) / 1240));
   }
 
   .item-portfolio__content {
@@ -1631,10 +1579,6 @@ textarea {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-  }
-
-  .portfolio__slide {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -1849,6 +1793,10 @@ textarea {
             animation-play-state: paused;
   }
 
+  .btns-tabs__btn:hover::after {
+    width: 100%;
+  }
+
   .portfolio__options:hover {
     color: #fff;
   }
@@ -1878,7 +1826,3 @@ textarea {
     text-decoration: underline;
   }
 }
-
-.webp .smoke, .webp .smoke-bg{ background-image: url(https://www.miclients.com/users/sean/assets/mystery-oreo/smoke_PNG55245.webp); }
-
-.webp .smoke-bg{ background-image: url(https://www.miclients.com/users/sean/assets/mystery-oreo/smoke-bg.webp); }

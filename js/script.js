@@ -2,448 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/components/dynamicSlide.js":
-/*!*******************************************!*\
-  !*** ./src/js/components/dynamicSlide.js ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const dynamicSlide = () => {
-  const slider = document.querySelector('.portfolio__slide');
-  const slideData = [{
-    href: 'linkToWork',
-    filter: 'web',
-    img: '01.png',
-    label: 'subsence monochrome',
-    text: 'Web design in monochromatic colors for SUBSENCE agency.',
-    type: 'web design'
-  }, {
-    href: 'linkToWork',
-    filter: 'logo',
-    img: '02.png',
-    label: 'design agency business card',
-    text: 'Logotype and business card design for ARTDESIGN agency.',
-    type: 'logo'
-  }, {
-    href: 'linkToWork',
-    filter: 'photography',
-    img: '03.png',
-    label: 'fixedgear shop photoshoot',
-    text: 'Photoshoot for the annual issue of the fixed gear and road bikes magazine.',
-    type: 'photography'
-  }, {
-    href: 'linkToWork',
-    filter: 'ui',
-    img: '04.png',
-    label: 'editor’s personal page',
-    text: 'Web page created for Ryan Fields a famous US editor.',
-    type: 'Ui'
-  }, {
-    href: 'linkToWork',
-    filter: 'web',
-    img: '04.png',
-    label: 'New Slide',
-    text: 'Web design in monochromatic colors for SUBSENCE agency.',
-    type: 'web design'
-  }, {
-    href: 'linkToWork',
-    filter: 'branding',
-    img: '03.png',
-    label: 'New Slide',
-    text: 'Logotype and business card design for ARTDESIGN agency.',
-    type: 'branding'
-  }, {
-    href: 'linkToWork',
-    filter: 'photography',
-    img: '01.png',
-    label: 'New SLide',
-    text: 'Photoshoot for the annual issue of the fixed gear and road bikes magazine.',
-    type: 'photography'
-  }, {
-    href: 'linkToWork',
-    filter: 'graphic',
-    img: '02.png',
-    label: 'New SLide',
-    text: 'Web page created for Ryan Fields a famous US editor.',
-    type: 'graphic'
-  }, {
-    href: 'linkToWork',
-    filter: 'graphic',
-    img: '02.png',
-    label: 'New SLide',
-    text: 'Web page created for Ryan Fields a famous US editor.',
-    type: 'graphic'
-  }];
-
-  function createSlideItems(data) {
-    data.forEach(item => {
-      const {
-        href,
-        filter,
-        img,
-        label,
-        text,
-        type
-      } = item; //Create element
-
-      const elem = document.createElement('a');
-      elem.classList.add('portfolio__item', 'item-portfolio');
-      elem.setAttribute('href', href);
-      elem.dataset.filter = filter; //
-      //fill element with contnet
-
-      elem.innerHTML = `
-                <div class="item-portfolio__image _ibg">
-                    <img src="./img/portfolio/${img}" alt="${filter}">
-                </div>
-                <div class="item-portfolio__content">
-                    <div class="item-portfolio__label">${label}</div>
-                    <div class="item-portfolio__text">${text}</div>
-                    <div class="item-portfolio__type">${type}</div>
-                </div>
-            `; //
-
-      slide.append(elem);
-    });
-  }
-
-  createSlideItems(slideData);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (dynamicSlide);
-
-/***/ }),
-
-/***/ "./src/js/components/serveFun.js":
-/*!***************************************!*\
-  !*** ./src/js/components/serveFun.js ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const serveFun = () => {};
-
-/* harmony default export */ __webpack_exports__["default"] = (serveFun);
-
-/***/ }),
-
-/***/ "./src/js/libs/slider.js":
-/*!*******************************!*\
-  !*** ./src/js/libs/slider.js ***!
-  \*******************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const Slider = () => {
-  let sliders = document.querySelectorAll('._swiper');
-
-  if (sliders) {
-    for (let index = 0; index < sliders.length; index++) {
-      let slider = sliders[index];
-
-      if (!slider.classList.contains('swiper-bild')) {
-        let slider_items = slider.children;
-
-        if (slider_items) {
-          for (let index = 0; index < slider_items.length; index++) {
-            let el = slider_items[index];
-            el.classList.add('swiper-slide');
-          }
-        }
-
-        let slider_content = slider.innerHTML;
-        let slider_wrapper = document.createElement('div');
-        slider_wrapper.classList.add('swiper-wrapper');
-        slider_wrapper.innerHTML = slider_content;
-        slider.innerHTML = '';
-        slider.appendChild(slider_wrapper);
-        slider.classList.add('swiper-bild');
-
-        if (slider.classList.contains('_swiper_scroll')) {
-          let sliderScroll = document.createElement('div');
-          sliderScroll.classList.add('swiper-scrollbar');
-          slider.appendChild(sliderScroll);
-        }
-      }
-
-      if (slider.classList.contains('_gallery')) {//slider.data('lightGallery').destroy(true);
-      }
-    }
-
-    sliders_bild_callback();
-  }
-
-  function sliders_bild_callback(params) {}
-
-  if (document.querySelector('.portfolio__wrapper')) {
-    new Swiper('.portfolio__wrapper', {
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 20,
-      speed: 800,
-      loop: true,
-      watchOverflow: true,
-      // Arrows
-      navigation: {
-        nextEl: '.portfolio__next',
-        prevEl: '.portfolio__prev'
-      },
-      breakpoints: {
-        //when window width is >= 320px //More
-        320: {
-          slidesPerView: 1,
-          spaceBetween: 15
-        },
-        992: {
-          slidesPerView: 1,
-          spaceBetween: 20
-        }
-      }
-    });
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Slider);
-
-/***/ }),
-
-/***/ "./src/js/libs/spoller.js":
-/*!********************************!*\
-  !*** ./src/js/libs/spoller.js ***!
-  \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const spoller = () => {
-  //=================
-
-  /*
-  Для родителя слойлеров пишем атрибут data-spollers
-  Для заголовков слойлеров пишем атрибут data-spoller
-  Если нужно включать\выключать работу спойлеров на разных размерах экранов
-  пишем параметры ширины и типа брейкпоинта.
-  Например: 
-  data-spollers="992,max" - спойлеры будут работать только на экранах меньше или равно 992px
-  data-spollers="768,min" - спойлеры будут работать только на экранах больше или равно 768px
-  
-  Если нужно что бы в блоке открывался болько один слойлер добавляем атрибут data-one-spoller
-  */
-  // SPOLLERS
-  const spollersArray = document.querySelectorAll('[data-spollers]');
-
-  if (spollersArray.length > 0) {
-    // Получение обычных слойлеров
-    const spollersRegular = Array.from(spollersArray).filter(function (item, index, self) {
-      return !item.dataset.spollers.split(",")[0];
-    }); // Инициализация обычных слойлеров
-
-    if (spollersRegular.length > 0) {
-      initSpollers(spollersRegular);
-    } // Получение слойлеров с медиа запросами
-
-
-    const spollersMedia = Array.from(spollersArray).filter(function (item, index, self) {
-      return item.dataset.spollers.split(",")[0];
-    }); // Инициализация слойлеров с медиа запросами
-
-    if (spollersMedia.length > 0) {
-      const breakpointsArray = [];
-      spollersMedia.forEach(item => {
-        const params = item.dataset.spollers;
-        const breakpoint = {};
-        const paramsArray = params.split(",");
-        breakpoint.value = paramsArray[0];
-        breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
-        breakpoint.item = item;
-        breakpointsArray.push(breakpoint);
-      }); // Получаем уникальные брейкпоинты
-
-      let mediaQueries = breakpointsArray.map(function (item) {
-        return '(' + item.type + "-width: " + item.value + "px)," + item.value + ',' + item.type;
-      });
-      mediaQueries = mediaQueries.filter(function (item, index, self) {
-        return self.indexOf(item) === index;
-      }); // Работаем с каждым брейкпоинтом
-
-      mediaQueries.forEach(breakpoint => {
-        const paramsArray = breakpoint.split(",");
-        const mediaBreakpoint = paramsArray[1];
-        const mediaType = paramsArray[2];
-        const matchMedia = window.matchMedia(paramsArray[0]); // Объекты с нужными условиями
-
-        const spollersArray = breakpointsArray.filter(function (item) {
-          if (item.value === mediaBreakpoint && item.type === mediaType) {
-            return true;
-          }
-        }); // Событие
-
-        matchMedia.addListener(function () {
-          initSpollers(spollersArray, matchMedia);
-        });
-        initSpollers(spollersArray, matchMedia);
-      });
-    } // Инициализация
-
-
-    function initSpollers(spollersArray) {
-      let matchMedia = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      spollersArray.forEach(spollersBlock => {
-        spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
-
-        if (matchMedia.matches || !matchMedia) {
-          spollersBlock.classList.add('_init');
-          initSpollerBody(spollersBlock);
-          spollersBlock.addEventListener("click", setSpollerAction);
-        } else {
-          spollersBlock.classList.remove('_init');
-          initSpollerBody(spollersBlock, false);
-          spollersBlock.removeEventListener("click", setSpollerAction);
-        }
-      });
-    } // Работа с контентом
-
-
-    function initSpollerBody(spollersBlock) {
-      let hideSpollerBody = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      const spollerTitles = spollersBlock.querySelectorAll('[data-spoller]');
-
-      if (spollerTitles.length > 0) {
-        spollerTitles.forEach(spollerTitle => {
-          if (hideSpollerBody) {
-            spollerTitle.removeAttribute('tabindex');
-
-            if (!spollerTitle.classList.contains('_active')) {
-              spollerTitle.nextElementSibling.hidden = true;
-            }
-          } else {
-            spollerTitle.setAttribute('tabindex', '-1');
-            spollerTitle.nextElementSibling.hidden = false;
-          }
-        });
-      }
-    }
-
-    function setSpollerAction(e) {
-      const el = e.target;
-
-      if (el.hasAttribute('data-spoller') || el.closest('[data-spoller]')) {
-        const spollerTitle = el.hasAttribute('data-spoller') ? el : el.closest('[data-spoller]');
-        const spollersBlock = spollerTitle.closest('[data-spollers]');
-        const oneSpoller = spollersBlock.hasAttribute('data-one-spoller') ? true : false;
-
-        if (!spollersBlock.querySelectorAll('._slide').length) {
-          if (oneSpoller && !spollerTitle.classList.contains('_active')) {
-            hideSpollersBody(spollersBlock);
-          }
-
-          spollerTitle.classList.toggle('_active');
-
-          _slideToggle(spollerTitle.nextElementSibling, 500);
-        }
-
-        e.preventDefault();
-      }
-    }
-
-    function hideSpollersBody(spollersBlock) {
-      const spollerActiveTitle = spollersBlock.querySelector('[data-spoller]._active');
-
-      if (spollerActiveTitle) {
-        spollerActiveTitle.classList.remove('_active');
-
-        _slideUp(spollerActiveTitle.nextElementSibling, 500);
-      }
-    }
-  } //=================
-  //SlideToggle
-
-
-  let _slideUp = function (target) {
-    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
-
-    if (!target.classList.contains('_slide')) {
-      target.classList.add('_slide');
-      target.style.transitionProperty = 'height, margin, padding';
-      target.style.transitionDuration = duration + 'ms';
-      target.style.height = target.offsetHeight + 'px';
-      target.offsetHeight;
-      target.style.overflow = 'hidden';
-      target.style.height = 0;
-      target.style.paddingTop = 0;
-      target.style.paddingBottom = 0;
-      target.style.marginTop = 0;
-      target.style.marginBottom = 0;
-      window.setTimeout(() => {
-        target.hidden = true;
-        target.style.removeProperty('height');
-        target.style.removeProperty('padding-top');
-        target.style.removeProperty('padding-bottom');
-        target.style.removeProperty('margin-top');
-        target.style.removeProperty('margin-bottom');
-        target.style.removeProperty('overflow');
-        target.style.removeProperty('transition-duration');
-        target.style.removeProperty('transition-property');
-        target.classList.remove('_slide');
-      }, duration);
-    }
-  };
-
-  let _slideDown = function (target) {
-    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
-
-    if (!target.classList.contains('_slide')) {
-      target.classList.add('_slide');
-
-      if (target.hidden) {
-        target.hidden = false;
-      }
-
-      let height = target.offsetHeight;
-      target.style.overflow = 'hidden';
-      target.style.height = 0;
-      target.style.paddingTop = 0;
-      target.style.paddingBottom = 0;
-      target.style.marginTop = 0;
-      target.style.marginBottom = 0;
-      target.offsetHeight;
-      target.style.transitionProperty = "height, margin, padding";
-      target.style.transitionDuration = duration + 'ms';
-      target.style.height = height + 'px';
-      target.style.removeProperty('padding-top');
-      target.style.removeProperty('padding-bottom');
-      target.style.removeProperty('margin-top');
-      target.style.removeProperty('margin-bottom');
-      window.setTimeout(() => {
-        target.style.removeProperty('height');
-        target.style.removeProperty('overflow');
-        target.style.removeProperty('transition-duration');
-        target.style.removeProperty('transition-property');
-        target.classList.remove('_slide');
-      }, duration);
-    }
-  };
-
-  let _slideToggle = function (target) {
-    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
-
-    if (target.hidden) {
-      return _slideDown(target, duration);
-    } else {
-      return _slideUp(target, duration);
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (spoller);
-
-/***/ }),
-
-/***/ "./src/js/modules/TweenMax.min.js":
-/*!****************************************!*\
-  !*** ./src/js/modules/TweenMax.min.js ***!
-  \****************************************/
+/***/ "./src/js/libs/TweenMax.min.js":
+/*!*************************************!*\
+  !*** ./src/js/libs/TweenMax.min.js ***!
+  \*************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3206,104 +2768,10 @@ const tween = () => {
 
 /***/ }),
 
-/***/ "./src/js/modules/addMore.js":
-/*!***********************************!*\
-  !*** ./src/js/modules/addMore.js ***!
-  \***********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const addMore = () => {
-  const arrData = [{
-    img: '01.png',
-    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
-    author: 'sarah robinson'
-  }, {
-    img: '03.png',
-    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
-    author: 'John Smit'
-  }, {
-    img: '02.png',
-    text: 'At first I was not sure about this team but I decided to give them a chance. And they didn’t let me down. Good job, guys',
-    author: 'Jeckson Storm'
-  }];
-  const wrapper = document.querySelector('.people-feedback__body'),
-        btn = document.querySelector('.people-feedback__more');
-
-  function appendItems(data) {
-    data.forEach(feedBack => {
-      const {
-        img,
-        text,
-        author
-      } = feedBack;
-      const item = document.createElement('div');
-      item.classList.add('people-feedback__item');
-      item.innerHTML = `    
-                <div class="people-feedback__content">
-                <div class="people-feedback__image _ibg">
-                    <img src="./img/feedback/${img}" alt="person">
-                </div>
-                <div class="people-feedback__text">${text}</div>
-                </div>
-                <div class="people-feedback__line"></div>
-                <div class="people-feedback__author">${author}</div>
-            `;
-      wrapper.append(item);
-    });
-  }
-
-  btn.addEventListener('click', () => appendItems(arrData));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (addMore);
-
-/***/ }),
-
-/***/ "./src/js/modules/burger.js":
-/*!**********************************!*\
-  !*** ./src/js/modules/burger.js ***!
-  \**********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-const burger = () => {
-  const btn = document.querySelector('.icon-menu'),
-        closeBtn = document.querySelector('.menu__close'),
-        links = document.querySelectorAll('.menu__link'),
-        menu = document.querySelector('.menu__body'); // if(links.length > 0){
-  //         links.forEach(item => {
-  //             item.addEventListener('click',function(e){
-  //                 btn.classList.remove('_active');
-  //                 menu.classList.remove('_active');
-  //                 document.body.classList.remove('_lock')
-  //             })
-  //         });
-  // }
-
-  function toggleMenu(trigger) {
-    trigger.addEventListener('click', function (e) {
-      btn.classList.toggle('_active');
-      menu.classList.toggle('_active');
-      document.body.classList.toggle('_lock');
-    });
-  }
-
-  toggleMenu(btn);
-  toggleMenu(closeBtn);
-  links.forEach(link => {
-    toggleMenu(link);
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (burger);
-
-/***/ }),
-
-/***/ "./src/js/modules/fire.js":
-/*!********************************!*\
-  !*** ./src/js/modules/fire.js ***!
-  \********************************/
+/***/ "./src/js/libs/fire.js":
+/*!*****************************!*\
+  !*** ./src/js/libs/fire.js ***!
+  \*****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3434,6 +2902,496 @@ const fire = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (fire);
+
+/***/ }),
+
+/***/ "./src/js/libs/slider.js":
+/*!*******************************!*\
+  !*** ./src/js/libs/slider.js ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const Slider = () => {
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 2,
+    grid: {
+      rows: 2
+    },
+    spaceBetween: 30,
+    navigation: {
+      nextEl: '.portfolio__next',
+      prevEl: '.portfolio__prev'
+    },
+    breakpoints: {
+      300: {
+        slidesPerView: 1,
+        grid: {
+          rows: 2
+        }
+      },
+      768: {
+        slidesPerView: 2
+      }
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Slider);
+
+/***/ }),
+
+/***/ "./src/js/libs/spoller.js":
+/*!********************************!*\
+  !*** ./src/js/libs/spoller.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const spoller = () => {
+  //=================
+
+  /*
+  Для родителя слойлеров пишем атрибут data-spollers
+  Для заголовков слойлеров пишем атрибут data-spoller
+  Если нужно включать\выключать работу спойлеров на разных размерах экранов
+  пишем параметры ширины и типа брейкпоинта.
+  Например: 
+  data-spollers="992,max" - спойлеры будут работать только на экранах меньше или равно 992px
+  data-spollers="768,min" - спойлеры будут работать только на экранах больше или равно 768px
+  
+  Если нужно что бы в блоке открывался болько один слойлер добавляем атрибут data-one-spoller
+  */
+  // SPOLLERS
+  const spollersArray = document.querySelectorAll('[data-spollers]');
+
+  if (spollersArray.length > 0) {
+    // Получение обычных слойлеров
+    const spollersRegular = Array.from(spollersArray).filter(function (item, index, self) {
+      return !item.dataset.spollers.split(",")[0];
+    }); // Инициализация обычных слойлеров
+
+    if (spollersRegular.length > 0) {
+      initSpollers(spollersRegular);
+    } // Получение слойлеров с медиа запросами
+
+
+    const spollersMedia = Array.from(spollersArray).filter(function (item, index, self) {
+      return item.dataset.spollers.split(",")[0];
+    }); // Инициализация слойлеров с медиа запросами
+
+    if (spollersMedia.length > 0) {
+      const breakpointsArray = [];
+      spollersMedia.forEach(item => {
+        const params = item.dataset.spollers;
+        const breakpoint = {};
+        const paramsArray = params.split(",");
+        breakpoint.value = paramsArray[0];
+        breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
+        breakpoint.item = item;
+        breakpointsArray.push(breakpoint);
+      }); // Получаем уникальные брейкпоинты
+
+      let mediaQueries = breakpointsArray.map(function (item) {
+        return '(' + item.type + "-width: " + item.value + "px)," + item.value + ',' + item.type;
+      });
+      mediaQueries = mediaQueries.filter(function (item, index, self) {
+        return self.indexOf(item) === index;
+      }); // Работаем с каждым брейкпоинтом
+
+      mediaQueries.forEach(breakpoint => {
+        const paramsArray = breakpoint.split(",");
+        const mediaBreakpoint = paramsArray[1];
+        const mediaType = paramsArray[2];
+        const matchMedia = window.matchMedia(paramsArray[0]); // Объекты с нужными условиями
+
+        const spollersArray = breakpointsArray.filter(function (item) {
+          if (item.value === mediaBreakpoint && item.type === mediaType) {
+            return true;
+          }
+        }); // Событие
+
+        matchMedia.addListener(function () {
+          initSpollers(spollersArray, matchMedia);
+        });
+        initSpollers(spollersArray, matchMedia);
+      });
+    } // Инициализация
+
+
+    function initSpollers(spollersArray) {
+      let matchMedia = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      spollersArray.forEach(spollersBlock => {
+        spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
+
+        if (matchMedia.matches || !matchMedia) {
+          spollersBlock.classList.add('_init');
+          initSpollerBody(spollersBlock);
+          spollersBlock.addEventListener("click", setSpollerAction);
+        } else {
+          spollersBlock.classList.remove('_init');
+          initSpollerBody(spollersBlock, false);
+          spollersBlock.removeEventListener("click", setSpollerAction);
+        }
+      });
+    } // Работа с контентом
+
+
+    function initSpollerBody(spollersBlock) {
+      let hideSpollerBody = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      const spollerTitles = spollersBlock.querySelectorAll('[data-spoller]');
+
+      if (spollerTitles.length > 0) {
+        spollerTitles.forEach(spollerTitle => {
+          if (hideSpollerBody) {
+            spollerTitle.removeAttribute('tabindex');
+
+            if (!spollerTitle.classList.contains('_active')) {
+              spollerTitle.nextElementSibling.hidden = true;
+            }
+          } else {
+            spollerTitle.setAttribute('tabindex', '-1');
+            spollerTitle.nextElementSibling.hidden = false;
+          }
+        });
+      }
+    }
+
+    function setSpollerAction(e) {
+      const el = e.target;
+
+      if (el.hasAttribute('data-spoller') || el.closest('[data-spoller]')) {
+        const spollerTitle = el.hasAttribute('data-spoller') ? el : el.closest('[data-spoller]');
+        const spollersBlock = spollerTitle.closest('[data-spollers]');
+        const oneSpoller = spollersBlock.hasAttribute('data-one-spoller') ? true : false;
+
+        if (!spollersBlock.querySelectorAll('._slide').length) {
+          if (oneSpoller && !spollerTitle.classList.contains('_active')) {
+            hideSpollersBody(spollersBlock);
+          }
+
+          spollerTitle.classList.toggle('_active');
+
+          _slideToggle(spollerTitle.nextElementSibling, 500);
+        }
+
+        e.preventDefault();
+      }
+    }
+
+    function hideSpollersBody(spollersBlock) {
+      const spollerActiveTitle = spollersBlock.querySelector('[data-spoller]._active');
+
+      if (spollerActiveTitle) {
+        spollerActiveTitle.classList.remove('_active');
+
+        _slideUp(spollerActiveTitle.nextElementSibling, 500);
+      }
+    }
+  } //=================
+  //SlideToggle
+
+
+  let _slideUp = function (target) {
+    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+    if (!target.classList.contains('_slide')) {
+      target.classList.add('_slide');
+      target.style.transitionProperty = 'height, margin, padding';
+      target.style.transitionDuration = duration + 'ms';
+      target.style.height = target.offsetHeight + 'px';
+      target.offsetHeight;
+      target.style.overflow = 'hidden';
+      target.style.height = 0;
+      target.style.paddingTop = 0;
+      target.style.paddingBottom = 0;
+      target.style.marginTop = 0;
+      target.style.marginBottom = 0;
+      window.setTimeout(() => {
+        target.hidden = true;
+        target.style.removeProperty('height');
+        target.style.removeProperty('padding-top');
+        target.style.removeProperty('padding-bottom');
+        target.style.removeProperty('margin-top');
+        target.style.removeProperty('margin-bottom');
+        target.style.removeProperty('overflow');
+        target.style.removeProperty('transition-duration');
+        target.style.removeProperty('transition-property');
+        target.classList.remove('_slide');
+      }, duration);
+    }
+  };
+
+  let _slideDown = function (target) {
+    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+    if (!target.classList.contains('_slide')) {
+      target.classList.add('_slide');
+
+      if (target.hidden) {
+        target.hidden = false;
+      }
+
+      let height = target.offsetHeight;
+      target.style.overflow = 'hidden';
+      target.style.height = 0;
+      target.style.paddingTop = 0;
+      target.style.paddingBottom = 0;
+      target.style.marginTop = 0;
+      target.style.marginBottom = 0;
+      target.offsetHeight;
+      target.style.transitionProperty = "height, margin, padding";
+      target.style.transitionDuration = duration + 'ms';
+      target.style.height = height + 'px';
+      target.style.removeProperty('padding-top');
+      target.style.removeProperty('padding-bottom');
+      target.style.removeProperty('margin-top');
+      target.style.removeProperty('margin-bottom');
+      window.setTimeout(() => {
+        target.style.removeProperty('height');
+        target.style.removeProperty('overflow');
+        target.style.removeProperty('transition-duration');
+        target.style.removeProperty('transition-property');
+        target.classList.remove('_slide');
+      }, duration);
+    }
+  };
+
+  let _slideToggle = function (target) {
+    let duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+    if (target.hidden) {
+      return _slideDown(target, duration);
+    } else {
+      return _slideUp(target, duration);
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (spoller);
+
+/***/ }),
+
+/***/ "./src/js/modules/addMore.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/addMore.js ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const addMore = () => {
+  const arrData = [{
+    img: '01.png',
+    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
+    author: 'sarah robinson'
+  }, {
+    img: '03.png',
+    text: 'Working with thise guys was an astonishing expirience for me. I was pleased with theyre work.',
+    author: 'John Smit'
+  }, {
+    img: '02.png',
+    text: 'At first I was not sure about this team but I decided to give them a chance. And they didn’t let me down. Good job, guys',
+    author: 'Jeckson Storm'
+  }];
+  const wrapper = document.querySelector('.people-feedback__body'),
+        btn = document.querySelector('.people-feedback__more');
+
+  function appendItems(data) {
+    data.forEach(feedBack => {
+      const {
+        img,
+        text,
+        author
+      } = feedBack;
+      const item = document.createElement('div');
+      item.classList.add('people-feedback__item');
+      item.innerHTML = `    
+                <div class="people-feedback__content">
+                <div class="people-feedback__image _ibg">
+                    <img src="./img/feedback/${img}" alt="person">
+                </div>
+                <div class="people-feedback__text">${text}</div>
+                </div>
+                <div class="people-feedback__line"></div>
+                <div class="people-feedback__author">${author}</div>
+            `;
+      wrapper.append(item);
+    });
+  }
+
+  btn.addEventListener('click', function () {
+    this.remove();
+    appendItems(arrData);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (addMore);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const burger = () => {
+  const btn = document.querySelector('.icon-menu'),
+        closeBtn = document.querySelector('.menu__close'),
+        links = document.querySelectorAll('.menu__link'),
+        menu = document.querySelector('.menu__body');
+
+  function toggleMenu(trigger) {
+    trigger.addEventListener('click', function (e) {
+      btn.classList.toggle('_active');
+      menu.classList.toggle('_active');
+      document.body.classList.toggle('_lock');
+    });
+  }
+
+  toggleMenu(btn);
+  toggleMenu(closeBtn);
+  links.forEach(link => {
+    toggleMenu(link);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (burger);
+
+/***/ }),
+
+/***/ "./src/js/modules/filter.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/filter.js ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const filter = () => {
+  const allBtns = document.querySelectorAll('.portfolio__options');
+  const allItems = document.querySelectorAll('.item-portfolio');
+
+  function hideAll() {
+    allItems.forEach(item => {
+      item.classList.add('_hide');
+    });
+  }
+
+  function showCurrent(kind) {
+    allItems.forEach(item => {
+      if (item.dataset.filter == kind) {
+        item.classList.remove('_hide');
+      }
+    });
+  }
+
+  allBtns.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const kind = e.target.dataset.filter;
+      hideAll();
+      showCurrent(kind);
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 2,
+        grid: {
+          rows: 2
+        },
+        spaceBetween: 30,
+        navigation: {
+          nextEl: '.portfolio__next',
+          prevEl: '.portfolio__prev'
+        }
+      });
+      document.querySelector('.portfolio__select').click();
+    });
+  }); //Show all
+
+  document.querySelector('[data-filter="all"').addEventListener('click', () => {
+    allItems.forEach(item => {
+      item.classList.remove('_hide');
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filter);
+
+/***/ }),
+
+/***/ "./src/js/modules/form.js":
+/*!********************************!*\
+  !*** ./src/js/modules/form.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const form = () => {
+  const forms = document.querySelectorAll('form'),
+        modal = document.querySelector('.modal'),
+        modalText = document.querySelector('.modal__text');
+
+  function showModal(text) {
+    modalText.textContent = text;
+    modal.classList.add('_active');
+    setTimeout(() => {
+      modal.classList.remove('_active');
+    }, 2000);
+  }
+
+  forms.forEach(form => {
+    bindPostData(form);
+  });
+
+  const postData = async (url, data) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: data
+    });
+    return await res.text();
+  };
+
+  function bindPostData(form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      postData('./php/server.php', formData).then(data => {
+        console.log(data);
+        form.reset();
+        showModal('Все успешно отправилось!');
+      }).catch(() => {
+        showModal('Произошла ошибка!');
+      });
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (form);
+
+/***/ }),
+
+/***/ "./src/js/modules/lamp.js":
+/*!********************************!*\
+  !*** ./src/js/modules/lamp.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const lamp = () => {
+  const btn = document.querySelector('.btn');
+  setTimeout(() => {
+    document.querySelector('.wrapper').classList.toggle('_active');
+    setInterval(() => {
+      document.querySelector('.wrapper').classList.toggle('_active');
+    }, 800);
+  }, 1100);
+  btn.addEventListener('click', function (e) {
+    //    document.querySelector('.wrapper').classList.toggle('_active'); 
+    setInterval(() => {
+      document.querySelector('.wrapper').classList.toggle('_active');
+    }, 1000);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (lamp);
 
 /***/ }),
 
@@ -3744,40 +3702,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_scrollDown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/scrollDown */ "./src/js/modules/scrollDown.js");
 /* harmony import */ var _modules_menuScroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/menuScroll */ "./src/js/modules/menuScroll.js");
 /* harmony import */ var _modules_addMore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/addMore */ "./src/js/modules/addMore.js");
-/* harmony import */ var _components_dynamicSlide__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/dynamicSlide */ "./src/js/components/dynamicSlide.js");
-/* harmony import */ var _components_serveFun__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/serveFun */ "./src/js/components/serveFun.js");
-/* harmony import */ var _modules_TweenMax_min__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/TweenMax.min */ "./src/js/modules/TweenMax.min.js");
-/* harmony import */ var _modules_fire__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/fire */ "./src/js/modules/fire.js");
-//////////// def
-
-
- ////////////
-///////////Own
+/* harmony import */ var _libs_TweenMax_min__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./libs/TweenMax.min */ "./src/js/libs/TweenMax.min.js");
+/* harmony import */ var _libs_fire__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./libs/fire */ "./src/js/libs/fire.js");
+/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/form */ "./src/js/modules/form.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+/* harmony import */ var _modules_lamp__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/lamp */ "./src/js/modules/lamp.js");
 
 
 
 
- // import filter from './modules/filter';
 
 
- ///////////
+
+
+
 
 
 
 
 window.addEventListener('DOMContentLoaded', () => {
   (0,_services_default__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  (0,_modules_TweenMax_min__WEBPACK_IMPORTED_MODULE_10__["default"])();
-  (0,_modules_fire__WEBPACK_IMPORTED_MODULE_11__["default"])(); // dynamicSlide();
-
-  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  (0,_libs_spoller__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  (0,_libs_TweenMax_min__WEBPACK_IMPORTED_MODULE_8__["default"])();
+  (0,_libs_fire__WEBPACK_IMPORTED_MODULE_9__["default"])();
   (0,_libs_slider__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_libs_spoller__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])();
   (0,_modules_scrollDown__WEBPACK_IMPORTED_MODULE_5__["default"])();
   (0,_modules_menuScroll__WEBPACK_IMPORTED_MODULE_6__["default"])();
   (0,_modules_addMore__WEBPACK_IMPORTED_MODULE_7__["default"])();
-  (0,_components_serveFun__WEBPACK_IMPORTED_MODULE_9__["default"])(); // filter();
+  (0,_modules_form__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  (0,_modules_lamp__WEBPACK_IMPORTED_MODULE_12__["default"])(); // filter();
 });
 }();
 /******/ })()

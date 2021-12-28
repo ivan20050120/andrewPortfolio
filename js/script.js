@@ -3383,12 +3383,6 @@ const lamp = () => {
       document.querySelector('.wrapper').classList.toggle('_active');
     }, 800);
   }, 1100);
-  btn.addEventListener('click', function (e) {
-    //    document.querySelector('.wrapper').classList.toggle('_active'); 
-    setInterval(() => {
-      document.querySelector('.wrapper').classList.toggle('_active');
-    }, 1000);
-  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (lamp);

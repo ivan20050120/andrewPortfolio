@@ -334,18 +334,18 @@ textarea {
 }
 
 .light {
-  position: absolute;
+  position: relative;
   top: -100%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) scale(2);
-      -ms-transform: translateX(-50%) scale(2);
-          transform: translateX(-50%) scale(2);
   -webkit-transition: all 1s ease 0s;
   -o-transition: all 1s ease 0s;
   transition: all 1s ease 0s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 250px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -355,6 +355,9 @@ textarea {
           animation-duration: 1s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+  -webkit-transform: scale(2);
+      -ms-transform: scale(2);
+          transform: scale(2);
 }
 
 .bulb {
@@ -415,7 +418,7 @@ textarea {
   left: calc(50% - 2px);
   bottom: 50%;
   width: 4px;
-  height: 60vh;
+  height: 160vh;
   background: #000;
   z-index: 1;
 }
@@ -434,8 +437,8 @@ textarea {
 
 .wrapper._active .bulb {
   background: #FFCD75;
-  -webkit-box-shadow: 0 0 50px rgba(255, 204, 117, 0.4), 0 0 100px rgba(255, 204, 117, 0.4), 0 0 150px rgba(255, 204, 117, 0.4), 0 0 200px rgba(255, 204, 117, 0.4), 0 0 250px rgba(255, 204, 117, 0.4);
-          box-shadow: 0 0 50px rgba(255, 204, 117, 0.4), 0 0 100px rgba(255, 204, 117, 0.4), 0 0 150px rgba(255, 204, 117, 0.4), 0 0 200px rgba(255, 204, 117, 0.4), 0 0 250px rgba(255, 204, 117, 0.4);
+  -webkit-box-shadow: 0 0 50px rgba(255, 204, 117, 0.4), 0 0 50px rgba(255, 204, 117, 0.4), 0 0 150px rgba(255, 204, 117, 0.4), 0 0 200px rgba(255, 204, 117, 0.4), 0 0 250px rgba(255, 204, 117, 0.4);
+          box-shadow: 0 0 50px rgba(255, 204, 117, 0.4), 0 0 50px rgba(255, 204, 117, 0.4), 0 0 150px rgba(255, 204, 117, 0.4), 0 0 200px rgba(255, 204, 117, 0.4), 0 0 250px rgba(255, 204, 117, 0.4);
 }
 
 .wrapper._active .bulb::after {
@@ -475,7 +478,7 @@ textarea {
   }
 
   100% {
-    top: 40%;
+    top: 0%;
   }
 }
 
@@ -485,7 +488,7 @@ textarea {
   }
 
   100% {
-    top: 40%;
+    top: 0%;
   }
 }
 
@@ -1772,9 +1775,14 @@ textarea {
 
 @media (max-width: 767.98px) {
   .light {
-    -webkit-transform: translateX(-50%) scale(1.6);
-        -ms-transform: translateX(-50%) scale(1.6);
-            transform: translateX(-50%) scale(1.6);
+    -webkit-transform: scale(1.6);
+        -ms-transform: scale(1.6);
+            transform: scale(1.6);
+  }
+
+  .wrapper._active .bulb {
+    -webkit-box-shadow: 0 0 25px rgba(255, 204, 117, 0.4), 0 0 50px rgba(255, 204, 117, 0.4), 0 0 75px rgba(255, 204, 117, 0.4), 0 0 100px rgba(255, 204, 117, 0.4), 0 0 125px rgba(255, 204, 117, 0.4);
+            box-shadow: 0 0 25px rgba(255, 204, 117, 0.4), 0 0 50px rgba(255, 204, 117, 0.4), 0 0 75px rgba(255, 204, 117, 0.4), 0 0 100px rgba(255, 204, 117, 0.4), 0 0 125px rgba(255, 204, 117, 0.4);
   }
 
   .tabs__body {
@@ -1877,6 +1885,11 @@ textarea {
 }
 
 @media (max-width: 479.98px) {
+  .wrapper._active .bulb {
+    -webkit-box-shadow: 0 0 5px rgba(255, 204, 117, 0.4), 0 0 10px rgba(255, 204, 117, 0.4), 0 0 15px rgba(255, 204, 117, 0.4), 0 0 20px rgba(255, 204, 117, 0.4), 0 0 25px rgba(255, 204, 117, 0.4);
+            box-shadow: 0 0 5px rgba(255, 204, 117, 0.4), 0 0 10px rgba(255, 204, 117, 0.4), 0 0 15px rgba(255, 204, 117, 0.4), 0 0 20px rgba(255, 204, 117, 0.4), 0 0 25px rgba(255, 204, 117, 0.4);
+  }
+
   .content-tabs__text {
     max-width: none;
   }
